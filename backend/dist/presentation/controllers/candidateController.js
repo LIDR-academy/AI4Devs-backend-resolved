@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addCandidate = exports.getCandidateById = exports.addCandidateController = void 0;
+exports.getCandidateById = exports.addCandidate = exports.getCandidateByIdController = exports.addCandidateController = void 0;
 var candidateService_1 = require("../../application/services/candidateService");
 Object.defineProperty(exports, "addCandidate", { enumerable: true, get: function () { return candidateService_1.addCandidate; } });
+Object.defineProperty(exports, "getCandidateById", { enumerable: true, get: function () { return candidateService_1.getCandidateById; } });
 var addCandidateController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var candidateData, candidate, error_1;
     return __generator(this, function (_a) {
@@ -65,30 +66,32 @@ var addCandidateController = function (req, res) { return __awaiter(void 0, void
     });
 }); };
 exports.addCandidateController = addCandidateController;
-var getCandidateById = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var getCandidateByIdController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, candidate, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                id = parseInt(req.params.id);
-                if (isNaN(id)) {
-                    return [2 /*return*/, res.status(400).json({ error: 'Invalid ID format' })];
+                id = req.params.id;
+                if (isNaN(Number(id))) {
+                    return [2 /*return*/, res.status(400).json({ message: 'Invalid candidate ID' })];
                 }
-                return [4 /*yield*/, (0, candidateService_1.findCandidateById)(id)];
+                _a.label = 1;
             case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, (0, candidateService_1.getCandidateById)(Number(id))];
+            case 2:
                 candidate = _a.sent();
                 if (!candidate) {
-                    return [2 /*return*/, res.status(404).json({ error: 'Candidate not found' })];
+                    return [2 /*return*/, res.status(404).json({ message: 'Candidate not found' })];
                 }
-                res.json(candidate);
-                return [3 /*break*/, 3];
-            case 2:
+                res.status(200).json(candidate);
+                return [3 /*break*/, 4];
+            case 3:
                 error_2 = _a.sent();
-                res.status(500).json({ error: 'Internal Server Error' });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                res.status(500).json({ message: 'Internal server error' });
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
-exports.getCandidateById = getCandidateById;
+exports.getCandidateByIdController = getCandidateByIdController;

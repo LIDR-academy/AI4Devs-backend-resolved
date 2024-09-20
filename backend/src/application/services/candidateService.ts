@@ -3,6 +3,8 @@ import { validateCandidateData } from '../validator';
 import { Education } from '../../domain/models/Education';
 import { WorkExperience } from '../../domain/models/WorkExperience';
 import { Resume } from '../../domain/models/Resume';
+import { Application } from '../../domain/models/Application';
+import { InterviewStep } from '../../domain/models/InterviewStep';
 
 export const addCandidate = async (candidateData: any) => {
     try {
@@ -61,4 +63,23 @@ export const getCandidateById = async (id: number): Promise<Candidate | null> =>
     } catch (error: any) {
         throw new Error('Database connection error');
     }
+};
+
+export const updateCandidateInterviewStepService = async (applicationId: number, newInterviewStepId: number) => {
+    const application = await Application.findOne(applicationId);
+
+    if (!application) {
+        return null;
+    }
+
+    const interviewStep = await InterviewStep.findOne(newInterviewStepId);
+
+    if (!interviewStep) {
+        throw new Error('Invalid interview step');
+    }
+
+    application.currentInterviewStep = newInterviewStepId;
+    await application.save();
+
+    return application;
 };

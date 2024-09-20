@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findCandidateById = exports.addCandidate = void 0;
+exports.getCandidateById = exports.addCandidate = void 0;
 var Candidate_1 = require("../../domain/models/Candidate");
 var validator_1 = require("../validator");
 var Education_1 = require("../../domain/models/Education");
@@ -119,7 +119,7 @@ var addCandidate = function (candidateData) { return __awaiter(void 0, void 0, v
     });
 }); };
 exports.addCandidate = addCandidate;
-var findCandidateById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+var getCandidateById = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     var candidate, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -131,10 +131,9 @@ var findCandidateById = function (id) { return __awaiter(void 0, void 0, void 0,
                 return [2 /*return*/, candidate];
             case 2:
                 error_2 = _a.sent();
-                console.error('Error al buscar el candidato:', error_2);
-                throw new Error('Error al recuperar el candidato');
+                throw new Error('Database connection error');
             case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.findCandidateById = findCandidateById;
+exports.getCandidateById = getCandidateById;

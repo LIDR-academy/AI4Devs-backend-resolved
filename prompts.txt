@@ -1,0 +1,50 @@
+Genera un endpoint GET para GET /positions/:id/candidates que devuelva todos los candidatos en proceso para una determinada posición. El endpoint debe realizar lo siguiente:
+
+Recoger todas las aplicaciones de la tabla application para una determinada posición (positionID).
+Obtener el nombre completo de cada candidato desde la tabla candidate.
+Mostrar el current_interview_step (la fase actual del proceso) para cada candidato desde la tabla application.
+Calcular y mostrar la puntuación media del candidato a partir de todas las entrevistas (interviews) realizadas, donde cada entrevista tiene un score.
+
+Asegúrate de que el endpoint siga esta estructura y retorne un JSON con el siguiente formato:
+
+[
+  {
+    "candidate_name": "Nombre completo del candidato",
+    "current_interview_step": "Fase actual del proceso de entrevistas",
+    "average_score": "Puntuación media del candidato"
+  },
+  ...
+]
+
+Recuerda incluir las validaciones necesarias para comprobar si el positionID es válido y manejar casos donde el candidato no tenga entrevistas registradas, devolviendo average_score: null.
+
+-------
+
+
+Genera el código para un endpoint PUT /candidate/:id que permita modificar la fase actual del proceso de entrevistas en la que se encuentra un candidato específico. El endpoint debe cumplir con lo siguiente:
+
+Parámetros de entrada:
+
+Recibe como parámetro en la URL el id del candidato.
+
+En el cuerpo de la solicitud (request body), recibe la nueva fase del proceso de entrevistas en la que se encuentra el candidato. Ejemplo de formato JSON:
+
+{
+
+"current_interview_step": "New Step"
+
+}
+
+Buscar el candidato por su id.
+
+Actualizar el campo current_interview_step en la tabla application con el nuevo valor proporcionado.
+
+Devolver un mensaje de éxito si la actualización fue realizada correctamente.
+
+Manejo de errores:
+
+Si el id del candidato no existe, devolver una respuesta con estatus 404 Not Found y un mensaje de error apropiado.
+
+Si el campo current_interview_step no se proporciona en el cuerpo de la solicitud o es inválido, devolver una respuesta con estatus 400 Bad Request y un mensaje indicando el error.
+
+Implementar validaciones de datos para asegurar que el valor de current_interview_step sea válido y aceptable según las reglas del negocio.
